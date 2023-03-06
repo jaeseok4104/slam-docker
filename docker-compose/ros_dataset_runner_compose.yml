@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  dataset:
+    image: ros:melodic
+    tty: true
+    container_name: ros_dataset_runner
+    network_mode: host
+    privileged: true
+    volumes:
+      - ${DATASET}:/root/dataset
+    command: bash -c "cd /root/dataset && rosbag play --pause ${DATASET_NAME}"

@@ -2,29 +2,28 @@ version: '3'
 
 services:
   normal:
-    image: slam_docker/dyna_vins:latest
+    image: slam_docker/orb_slam3:latest
     build:
       context: ../
-      dockerfile: ./dockerfile/dyna_vins.Dockerfile
+      dockerfile: ./dockerfile/orb_slam3.Dockerfile
     tty: true
     environment: # used inside a docker.
       - DEBUG=        
       - DISPLAY=${DISPLAY}
-    container_name: dyna_vins
+    container_name: orb_slam3
     network_mode: host
     privileged: true
     volumes:
-      # - ${YOUR}/${DATASET}:/root/dataset
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev/dri:/dev/dri #X11 stuff
       - /dev/snd:/dev/snd #X11 stuff
       # connect devices
     command: bash
   cuda:
-    image: slam_docker/dyna_vins:latest
+    image: slam_docker/orb_slam3:latest
     build:
       context: ../
-      dockerfile: ./dockerfile/dyna_vins.Dockerfile
+      dockerfile: ./dockerfile/orb_slam3.Dockerfile
     tty: true
     runtime: nvidia
     environment: # used inside a docker.
@@ -32,13 +31,12 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - DEBUG=        
       - DISPLAY=${DISPLAY}
-    container_name: dyna_vins
+    container_name: orb_slam3
     network_mode: host
     privileged: true
     volumes:
-      # - ${YOUR}/${DATASET}:/root/dataset
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /dev/dri:/dev/dri #X11 stuff
       - /dev/snd:/dev/snd #X11 stuff
       # connect devices
-    command: bash
+    command: bash -c 'cd ~/ORB_SLAM3 && . /opt/ros/melodic/setup.bash && export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/root/ORB_SLAM3/Examples/ROS/ORB_SLAM3 && /bin/bash'
