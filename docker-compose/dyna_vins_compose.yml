@@ -1,7 +1,30 @@
 version: '3'
 
 services:
-  test:
+  normal:
+    image: slam_docker/dynavins_cuda:latest
+    build:
+      context: ../
+      dockerfile: ./dockerfile/dyna_vins_cuda.Dockerfile
+    tty: true
+    environment: # used inside a docker.
+      - MODE=devopment
+      - DEBUG=        
+      - DISPLAY=${DISPLAY}
+    # security_opt: # options needed for gdb debugging
+    #   - seccomp:unconfined
+    #   - apparmor:unconfined
+    container_name: dynavins_cuda
+    network_mode: host
+    privileged: true
+    volumes:
+      # - ${YOUR}/${DATASET}:/root/dataset
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/dri:/dev/dri #X11 stuff
+      - /dev/snd:/dev/snd #X11 stuff
+      # connect devices
+    command: bash
+  cuda:
     image: slam_docker/dynavins_cuda:latest
     build:
       context: ../

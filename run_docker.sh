@@ -14,4 +14,4 @@ fi
 ABS_PATH=$(to_abs_path ./)
 FULL_COMMAND=("$@")
 unset FULL_COMMAND[0]
-docker-compose --file ${ABS_PATH}/docker-compose/"$1"_cuda_compose.yml ${FULL_COMMAND[@]}
+docker-compose --file ${ABS_PATH}/docker-compose/"$1"_compose.yml ${FULL_COMMAND[@]}
