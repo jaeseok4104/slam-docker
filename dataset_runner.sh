@@ -14,6 +14,12 @@ fi
 ABS_PATH=$(to_abs_path ./)
 export DATASET=$1
 export DATASET_NAME=$2
-echo "${DATASET}"
-echo "${DATASET_NAME}"
+FULL_COMMAND=("$@")
+unset FULL_COMMAND[0]
+unset FULL_COMMAND[1]
+export ROSBAG_COMMAND=$( IFS=' '; printf '%s' "${FULL_COMMAND[*]}" )
+echo "${FULL_COMMAND[*]}"
+echo "${ROSBAG_COMMAND}"
+
+
 docker-compose --file ${ABS_PATH}/docker-compose/ros_dataset_runner_compose.yml run dataset

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  roscore:
+    image: ros:melodic
+    tty: true
+    container_name: ros_dataset_runner
+    network_mode: host
+    privileged: true
+    command: bash -c "roscore"

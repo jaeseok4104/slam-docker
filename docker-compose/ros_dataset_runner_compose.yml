@@ -9,4 +9,4 @@ services:
     privileged: true
     volumes:
       - ${DATASET}:/root/dataset
-    command: bash -c "cd /root/dataset && rosbag play --pause ${DATASET_NAME}"
+    command: bash -c "cd /root/dataset && rosbag play --pause ${DATASET_NAME} ${ROSBAG_COMMAND}"
