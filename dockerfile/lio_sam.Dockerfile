@@ -56,26 +56,26 @@ RUN  git clone https://github.com/Itseez/opencv.git /tmp/opencv && \
     ldconfig
 
 #install gtsam
-RUN cd /tmp &&\
-    git clone https://github.com/borglab/gtsam.git gtsam &&\
-    cd gtsam &&\
-    git checkout 4.0.2 &&\
-    mkdir build &&\
-    cd build &&\
-    cmake .. &&\
-    make install
+RUN apt-get update \
+    && apt install -y software-properties-common \
+    && add-apt-repository -y ppa:borglab/gtsam-release-4.0 \
+    && apt-get update \
+    && apt install -y libgtsam-dev libgtsam-unstable-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+#instlal libboost
+RUN apt install -y libboost-dev
 
 #install LIO-SAM
 RUN mkdir -p ~/catkin_ws/src &&\
     cd ~/catkin_ws/src &&\
     git clone https://github.com/TixiaoShan/LIO-SAM.git &&\
-
 #build
 RUN cd ~/catkin_ws &&\
 /bin/bash -c '. /opt/ros/melodic/setup.bash; catkin_make -DCMAKE_BUILD_TYPE=Release'
 
 #rviz install
-RUN apt install -y ros-melodic-rviz
+RUN apt update && apt install -y ros-melodic-rviz
 
 #entrypoint setup
 RUN sed -i "6i source \"/root/catkin_ws/devel/setup.bash\"" /ros_entrypoint.sh
