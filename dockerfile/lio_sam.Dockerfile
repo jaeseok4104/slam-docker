@@ -70,13 +70,18 @@ RUN apt install -y libboost-dev
 RUN mkdir -p ~/catkin_ws/src &&\
     cd ~/catkin_ws/src &&\
     git clone https://github.com/TixiaoShan/LIO-SAM.git
-    
+
 #build
 RUN cd ~/catkin_ws &&\
 /bin/bash -c '. /opt/ros/melodic/setup.bash; catkin_make -DCMAKE_BUILD_TYPE=Release'
 
 #rviz install
 RUN apt update && apt install -y ros-melodic-rviz
+
+#install ros package
+RUN apt install -y ros-melodic-xacro \
+    ros-melodic-robot-state-publisher \
+    ros-melodic-robot-localization
 
 #entrypoint setup
 RUN sed -i "6i source \"/root/catkin_ws/devel/setup.bash\"" /ros_entrypoint.sh
