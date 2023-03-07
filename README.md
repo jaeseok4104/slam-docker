@@ -5,7 +5,6 @@
 if you want run docker, you can run docker using `run_docker.sh`
 
 ## Example
--------------------
 ### Running Docker(with roslaunch)
 
 ```
