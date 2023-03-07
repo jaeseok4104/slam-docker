@@ -69,7 +69,8 @@ RUN apt install -y libboost-dev
 #install LIO-SAM
 RUN mkdir -p ~/catkin_ws/src &&\
     cd ~/catkin_ws/src &&\
-    git clone https://github.com/TixiaoShan/LIO-SAM.git &&\
+    git clone https://github.com/TixiaoShan/LIO-SAM.git
+    
 #build
 RUN cd ~/catkin_ws &&\
 /bin/bash -c '. /opt/ros/melodic/setup.bash; catkin_make -DCMAKE_BUILD_TYPE=Release'
