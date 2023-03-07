@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  normal:
+    image: slam_docker/disco_slam:latest
+    build:
+      context: ../
+      dockerfile: ./dockerfile/disco_slam.Dockerfile
+    tty: true
+    environment: # used inside a docker.
+      - DEBUG=        
+      - DISPLAY=${DISPLAY}
+    container_name: disco_slam
+    network_mode: host
+    privileged: true
+    volumes:
+      # - ${YOUR}/${DATASET}:/root/dataset
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/dri:/dev/dri #X11 stuff
+      - /dev/snd:/dev/snd #X11 stuff
+      # connect devices
+    command: bash
+  cuda:
+    image: slam_docker/disco_slam:latest
+    build:
+      context: ../
+      dockerfile: ./dockerfile/disco_slam.Dockerfile
+    tty: true
+    runtime: nvidia
+    environment: # used inside a docker.
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DEBUG=        
+      - DISPLAY=${DISPLAY}
+    container_name: disco_slam
+    network_mode: host
+    privileged: true
+    volumes:
+      # - ${YOUR}/${DATASET}:/root/dataset
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/dri:/dev/dri #X11 stuff
+      - /dev/snd:/dev/snd #X11 stuff
+      # connect devices
+    command: bash

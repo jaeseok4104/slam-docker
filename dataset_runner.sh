@@ -6,8 +6,6 @@ to_abs_path() {
 
 if [ $# -lt 2 ]
     then 
-        echo "Wrong Arguments."
-        echo "run_docker.sh takes all docker-compose arguments"
         echo "example) ./dataset_runner (your_dataset_abs_folder) (your_dataset_name)"
         exit
 fi 

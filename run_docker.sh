@@ -5,8 +5,6 @@ to_abs_path() {
 }
 if [ "$#" -eq "0" ]
     then 
-        echo "Wrong Arguments."
-        echo "run_docker.sh takes all docker-compose arguments"
         echo "example) $0 slam name"
         echo "example) $1 run/build/up service name"
         exit
